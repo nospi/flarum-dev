@@ -1,0 +1,4 @@
+packages/*
+!packages/.gitkeep
+volumes
+flarum/sql/dumps

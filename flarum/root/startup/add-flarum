@@ -1,0 +1,24 @@
+#!/command/with-contenv bash
+FLARUM_PROJECT="${FLARUM_PROJECT:-flarum/flarum}"
+FLARUM_ROOT="$(webhome)"
+FLARUM_CHECK="$FLARUM_ROOT/flarum"
+
+if [ ! -f "$FLARUM_CHECK" ]; then
+    # https://github.com/shinsenter/php/blob/main/src/servers/fpm-apache/root/usr/bin/wait-for-server
+    wait-for-server &>/dev/null
+
+    echo; echo "🤖 Installing $FLARUM_PROJECT from scratch…"
+    rm -rf $FLARUM_ROOT/public $FLARUM_ROOT/index.*
+
+    # https://github.com/shinsenter/php/blob/main/src/php/cli/root/usr/bin/composer-create
+    composer-create -d $FLARUM_ROOT/ $FLARUM_PROJECT $FLARUM_ROOT/
+
+    composer --file $FLARUM_ROOT/composer.json config repositories.0 path "$FLARUM_ROOT/packages/*"
+
+    # publish the assets so that the font files are served correctly   
+    php $FLARUM_ROOT/flarum assets:publish
+    
+    # fixes ownership of the flarum directory
+    # https://github.com/shinsenter/php/blob/main/src/base-ubuntu/root/usr/bin/wmd
+    wmd $FLARUM_ROOT -R & 
+fi
