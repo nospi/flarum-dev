@@ -44,10 +44,10 @@ Follow the logs if you'd like:
 
 You can then attach to the flarum container via CLI or VS Code if need be.
 
-`docker-compose exec -it flarum bash`
+`docker exec -it flarum bash`
 
 Or you can install your extension 'acme/extension' without entering the container:
 
-`docker-compose exec flarum composer-require acme/extension \*@dev`
+`docker exec flarum composer-require acme/extension \*@dev`
 
 This environment is utilising [shinsenter/flarum](https://github.com/shinsenter/php/tree/main/src/webapps/flarum)
