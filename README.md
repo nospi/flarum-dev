@@ -14,10 +14,6 @@ Place your extensions under the `packages` directory and you can then include th
 
 If you want to use the reverse proxy to provision SSL certs and allow VHOST access to your server externally, follow these steps before proceeding.
 
-Create the frontend network if you're using the NGINX reverse proxy:
-
-`docker network create flarum-frontend`
-
 Configure the `VIRTUAL_HOST` environment variable on the Flarum container, e.g.:
 
 `VIRTUAL_HOST=flarum.example.com`
@@ -25,6 +21,8 @@ Configure the `VIRTUAL_HOST` environment variable on the Flarum container, e.g.:
 Use docker-compose to run all the services:
 
 `docker-compose up -d`
+
+If you'd prefer to use an external NGINX proxy that you're already running, make sure you update the networks definition so that the Flarum container is on the same one.
 
 ---
 

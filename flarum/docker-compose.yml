@@ -23,7 +23,7 @@ services:
       - ./root/etc/cron.d/flarum:/etc/cron.d/flarum
       - ./root/startup/add-flarum:/startup/add-flarum
     networks:
-      - flarum-frontend
+      - frontend
       - backend
     ports:
       - "8000:80"
@@ -40,10 +40,9 @@ services:
       - /etc/ssl:/etc/ssl
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
-      - flarum-frontend
+      - frontend
     restart: unless-stopped
 
 networks:
-  flarum-frontend:
-    external: true
+  frontend:
   backend:
