@@ -16,6 +16,7 @@ services:
 
   flarum:
     image: shinsenter/flarum:latest
+    container_name: flarum
     volumes:
       - ../volumes/html:/var/www/html
       - ../packages:/var/www/html/packages
